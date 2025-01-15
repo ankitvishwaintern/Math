@@ -1,0 +1,173 @@
+<div class="container">
+  <div class="header">
+    <h1>{{ title }}</h1>
+    <p class="subtitle">Learn multiplication tables the fun way!</p>
+  </div>
+
+  <div class="input-section">
+    <input 
+      type="number" 
+      [ngModel]="number"
+      (ngModelChange)="number = $event"
+      placeholder="Enter a number" 
+      class="number-input"
+    >
+    <button 
+      (click)="generateTable()"  
+      class="generate-btn"
+    >
+      Generate Table
+    </button>
+  </div>
+
+  <div class="table-container" *ngIf="tableArray.length">
+    <div class="table-row" 
+         *ngFor="let result of tableArray; let i = index"
+         (click)="checkResult(i)"
+         [class.revealed]="shownResults.has(i)"
+         [class.correct]="resultStatuses.get(i) === true"
+         [class.incorrect]="resultStatuses.get(i) === false">
+      <div class="equation">
+        <span class="number">{{ number }}</span>
+        <span class="operator">×</span>
+        <span class="multiplier">{{ i + 1 }}</span>
+        <span class="equals">=</span>
+        <input 
+          type="number" 
+          [(ngModel)]="userInputs[i]"
+          class="result-input"
+          (click)="$event.stopPropagation()"
+        >
+        <span class="result" [class.hidden]="!shownResults.has(i)">
+          {{ result }}
+          <span class="validation-icon">
+            {{ resultStatuses.get(i) === true ? '✓' : '✗' }}
+          </span>
+        </span>
+        <span class="click-hint" *ngIf="!shownResults.has(i)">
+          Click to check answer
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+.input-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.number-input {
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: #f0f2f5;
+  box-shadow: inset 5px 5px 10px #d1d3d5,
+              inset -5px -5px 10px #ffffff;
+  width: 200px;
+}
+
+.generate-btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px #d1d3d5,
+             -5px -5px 10px #ffffff;
+  transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+.table-container {
+  background: #f0f2f5;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 10px 10px 20px #d1d3d5,
+             -10px -10px 20px #ffffff;
+}
+
+.table-row {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.table-row:hover {
+  transform: translateX(10px);
+}
+
+.equation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.3rem;
+}
+
+.number, .multiplier {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.operator, .equals {
+  color: #7f8c8d;
+}
+
+.result {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.click-hint {
+  color: #95a5a6;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.result.hidden {
+  display: none;
+}
+
+.revealed {
+  background: #e8f6ff;
+}
+</style>

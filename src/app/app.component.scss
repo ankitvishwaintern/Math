@@ -1,0 +1,39 @@
+.result-input {
+  padding: 0.5rem;
+  width: 80px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #f0f2f5;
+  box-shadow: inset 3px 3px 6px #d1d3d5,
+              inset -3px -3px 6px #ffffff;
+  text-align: center;
+}
+
+.table-row.correct {
+  background: #e8fff0;
+}
+
+.table-row.incorrect {
+  background: #ffe8e8;
+}
+
+.validation-icon {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+.correct .validation-icon {
+  color: #27ae60;
+}
+
+.incorrect .validation-icon {
+  color: #e74c3c;
+}
+
+.click-hint {
+  color: #95a5a6;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
